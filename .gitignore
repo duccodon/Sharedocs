@@ -1,1 +1,3 @@
 .states
+/node_modules/
+/test/
