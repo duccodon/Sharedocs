@@ -1,4 +1,3 @@
-// Auto-generated from deployment artifact
 // Do not edit manually - run: node scripts/copy-abi.js
 export const simpleStorageAbi = [
   {
