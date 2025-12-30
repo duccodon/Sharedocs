@@ -49,15 +49,15 @@ export function Dashboard() {
         
         const docs: Document[] = [];
         for (const hash of docHashes) {
-          const doc = await contract.getDocument(hash);
-          const metadata = JSON.parse(doc.metadata);
+          const [ipfsCID, uploader, timestamp, metadata] = await contract.getDocument(hash);
+          const meta = JSON.parse(metadata);
           
           docs.push({
-            hash: doc.documentHash,
-            filename: metadata.filename,
-            size: metadata.size,
-            timestamp: Number(doc.timestamp),
-            ipfsCID: doc.ipfsCID,
+            hash: hash,
+            filename: meta.filename,
+            size: meta.size,
+            timestamp: Number(timestamp),
+            ipfsCID: ipfsCID,
           });
         }
 

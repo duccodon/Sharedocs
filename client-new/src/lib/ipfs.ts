@@ -17,14 +17,14 @@ export interface UploadResult {
  */
 export async function uploadToPinata(file: File): Promise<UploadResult> {
   try {
-    // Use the pinata SDK upload method
-    const upload = await (pinata.upload as any).file(file);
+    // Use the correct Pinata SDK method: upload.public.file()
+    const upload = await pinata.upload.public.file(file);
 
-    if (upload.IpfsHash) {
-      const gatewayUrl = import.meta.env.VITE_PINATA_GATEWAY || 'https://gateway.pinata.cloud';
-      const ipfsUrl = `${gatewayUrl}/ipfs/${upload.IpfsHash}`;
+    if (upload.cid) {
+      // Use gateways.public.convert() to get the URL like the old client
+      const ipfsUrl = await pinata.gateways.public.convert(upload.cid);
       return {
-        cid: upload.IpfsHash,
+        cid: upload.cid,
         url: ipfsUrl,
       };
     }

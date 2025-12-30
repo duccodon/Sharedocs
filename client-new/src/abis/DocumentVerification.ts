@@ -1,5 +1,8 @@
-// Do not edit manually - run: node scripts/copy-abi.js
-export const simpleStorageAbi = [
+// Auto-generated from deployment artifact
+// Contract: DocumentVerification.sol
+// Network: Localhost (Chain ID: 31337)
+
+export const documentVerificationAbi = [
   {
     "anonymous": false,
     "inputs": [
@@ -263,4 +266,4 @@ export const simpleStorageAbi = [
     "stateMutability": "nonpayable",
     "type": "function"
   }
-];
+] as const;

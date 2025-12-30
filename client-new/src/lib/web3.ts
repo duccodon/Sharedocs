@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import DocumentVerificationAbi from '@/abis/DocumentVerification.json';
+import { documentVerificationAbi } from '@/abis/DocumentVerification.ts';
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS || '';
 
@@ -26,14 +26,18 @@ export async function getSigner(): Promise<ethers.JsonRpcSigner> {
  * @param needSigner - Whether to attach a signer (for write operations)
  */
 export async function getContract(needSigner = false): Promise<ethers.Contract> {
+  if (!CONTRACT_ADDRESS) {
+    throw new Error('Contract address not configured. Please check VITE_CONTRACT_ADDRESS in .env');
+  }
+
   const provider = getProvider();
 
   if (needSigner) {
     const signer = await getSigner();
-    return new ethers.Contract(CONTRACT_ADDRESS, DocumentVerificationAbi, signer);
+    return new ethers.Contract(CONTRACT_ADDRESS, documentVerificationAbi, signer);
   }
 
-  return new ethers.Contract(CONTRACT_ADDRESS, DocumentVerificationAbi, provider);
+  return new ethers.Contract(CONTRACT_ADDRESS, documentVerificationAbi, provider);
 }
 
 /**
